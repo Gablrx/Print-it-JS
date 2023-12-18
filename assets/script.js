@@ -23,6 +23,10 @@ const slides = [
 let arrowLeft = document.querySelector(".arrow_left");
 let arrowRight = document.querySelector(".arrow_right");
 
+// Event Listeners
+arrowLeft.addEventListener("click", handleLeftClick);
+arrowRight.addEventListener("click", handleRightClick);
+
 // Index du slide actuel
 let currentSlideIndex = 0;
 
@@ -40,8 +44,9 @@ function updateSlide(newIndex) {
 	bannerText.innerHTML = slides[newIndex].tagLine;
 
 	// Màj du bullet point 
-	document.querySelectorAll(".dot").forEach(dot => dot.classList.remove("dot_selected"));
-	dotsContainer.children[newIndex].classList.add("dot_selected");
+	document.querySelectorAll(".dot").forEach(dot => dot.classList.remove("dot_selected")); //Retire .dot_selected
+	dotsContainer.children[newIndex].classList.add("dot_selected"); //Ajoute .dot_selected au dot qui correspont au slide actuel
+
 }
 
 
@@ -65,10 +70,6 @@ function handleLeftClick() {
 	updateSlide(currentSlideIndex);
 }
 
-// Event Listeners
-arrowLeft.addEventListener("click", handleLeftClick);
-arrowRight.addEventListener("click", handleRightClick);
-
 
 
 /*************************** BULLET POINTS *************************/
@@ -77,19 +78,20 @@ arrowRight.addEventListener("click", handleRightClick);
 let dotsContainer = document.querySelector(".dots");
 
 // Création des bullet points et ajout des écouteurs d'événements
-slides.forEach((slide, index) => {
-	let dot = document.createElement("div");
-	dot.classList.add("dot");
+slides.forEach((slide, index) => { // Pour chaque slide
+	let dot = document.createElement("div"); // Créé une div
+	dot.classList.add("dot"); // Pour chaque div crée, ajoute la classe .dot
+	dotsContainer.appendChild(dot); //Ajout de chaque dot dans la div .dots
+
 	dot.addEventListener("click", () => {
 		updateSlide(index);
 	});
-	dotsContainer.appendChild(dot);
 });
 
 // Ajoute la classe .dot_selected pour le slide actuel
-let currentSlideDot = dotsContainer.querySelector(".dot");
+let currentSlideDot = dotsContainer.querySelector(".dot"); // Sélectionne le premier .dot
 if (currentSlideDot) {
-	currentSlideDot.classList.add("dot_selected");
+	currentSlideDot.classList.add("dot_selected"); //ajoute la classe .dot_selected
 }
 
 
